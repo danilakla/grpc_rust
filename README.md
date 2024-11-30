@@ -20,12 +20,10 @@ markdown
 
 ### 1. Установить Rust
 Для установки Rust воспользуйтесь [официальным установщиком](https://rustup.rs/):
-```bash
+
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 Проверьте, что Rust установлен:
 
-bash
-Копировать код
 rustc --version
 cargo --version
 ## 2. Установить Protobuf Compiler (protoc)
