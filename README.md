@@ -56,7 +56,7 @@ tokio = { version = "1", features = ["full"] }
 
 mkdir proto
 Создайте файл proto/calculator.proto:
-
+```
 syntax = "proto3";
 package greet;
 
@@ -87,7 +87,7 @@ message Parm1Result {
   int32 x = 1;
   int32 z = 2;
 }
-
+```
 ## 6. Генерация gRPC кода
 Добавьте build.rs в корневую папку проекта:
 
@@ -136,8 +136,7 @@ impl Greeter for MyGreeter {
 В этом блоке мы реализуем методы сервиса для каждой операции: сложение (add), умножение (mul), вычитание (sub), деление (div) и возведение в квадрат (pow2). Каждый метод асинхронный и принимает запрос типа Request<T>, где T — это структура данных, определенная в Protobuf.
 
 Пример для метода add:
-rust
-Копировать код
+```
 async fn add(&self, request: Request<Parm2Request>) -> Result<Response<Parm2Result>, Status> {
     let req = request.into_inner();
     Ok(Response::new(Parm2Result {
@@ -146,6 +145,7 @@ async fn add(&self, request: Request<Parm2Request>) -> Result<Response<Parm2Resu
         z: req.x + req.y,
     }))
 }
+```
 Метод add получает запрос типа Parm2Request, который содержит два числа (например, x и y).
 Мы используем request.into_inner(), чтобы извлечь данные из запроса.
 Затем выполняем сложение чисел и создаем объект ответа Parm2Result с результатом (z).
@@ -158,8 +158,8 @@ async fn add(&self, request: Request<Parm2Request>) -> Result<Response<Parm2Resu
 Метод pow2 возводит число в квадрат.
 5. Запуск сервера
 rust
-Копировать код
-#[tokio::main]
+
+```#[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let addr = "[::1]:50051".parse()?;
     let greeter = MyGreeter::default();
@@ -173,6 +173,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     Ok(())
 }
+```
 #[tokio::main]: Атрибут для асинхронного основного блока программы с использованием Tokio. Это позволяет использовать асинхронные операции, такие как запуск gRPC сервера.
 let addr = "[::1]:50051".parse()?;: Здесь мы задаем адрес, на котором будет слушать сервер. [::1] — это адрес для localhost (IPv6), и порт 50051.
 Server::builder().add_service(GreeterServer::new(greeter)).serve(addr).await?;: Это создает и запускает сервер gRPC:
@@ -197,35 +198,35 @@ greet::greeter_client::GreeterClient: Это клиент, сгенериров�
 greet::{Parm1Request, Parm2Request}: Структуры, сгенерированные из .proto файла, которые представляют данные запросов, которые отправляются на сервер.
 2. Подключение Protobuf
 rust
-Копировать код
+```
 pub mod greet {
     tonic::include_proto!("greet");
 }
+```
 Этот блок подключает сгенерированные типы из вашего .proto файла, что позволяет использовать типы данных, такие как Parm1Request, Parm1Result, и другие, для создания и обработки запросов и ответов.
 
 3. Основная асинхронная функция
-rust
-Копировать код
+```
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut client = GreeterClient::connect("http://[::1]:50051").await?;
 #[tokio::main]: Атрибут, который позволяет использовать асинхронные функции с Tokio (библиотека для асинхронного программирования).
 GreeterClient::connect("http://[::1]:50051").await?: Устанавливаем соединение с сервером, который работает на локальном хосте (IPv6 ::1) на порту 50051.
+```
 4. Цикл взаимодействия с пользователем
 rust
-Копировать код
-loop {
+```loop {
     println!("Choose an operation: Add, Sub, Mul, Div, Pow2");
     let mut operation = String::new();
     std::io::stdin().read_line(&mut operation)?;
     let operation = operation.trim().to_lowercase();
+```
 loop {}: Цикл, который продолжает выполняться, пока не будет завершен пользователем.
 Программа выводит сообщение, чтобы пользователь выбрал операцию, и ждет ввода.
 Вводимая строка преобразуется в нижний регистр для удобства.
 5. Обработка операций
 rust
-Копировать код
-match operation.as_str() {
+```match operation.as_str() {
     "add" | "sub" | "mul" | "div" => {
         let (x, y) = get_two_numbers();
         let request = tonic::Request::new(Parm2Request { x, y });
@@ -250,6 +251,7 @@ match operation.as_str() {
         println!("Invalid operation. Try again.");
     }
 }
+```
 Здесь осуществляется обработка введенной операции:
 
 Если операция относится к бинарным операциям (add, sub, mul, div), запрашиваются два числа (вызов функции get_two_numbers()), создается запрос Parm2Request, и отправляется на сервер. В зависимости от операции вызывается соответствующий метод на сервере (add, sub, mul, div).
@@ -257,7 +259,7 @@ match operation.as_str() {
 После выполнения операции выводится результат.
 6. Функции для получения чисел
 rust
-Копировать код
+```
 fn get_two_numbers() -> (i32, i32) {
     println!("Enter two integers (x and y):");
 
@@ -285,6 +287,7 @@ fn read_number(prompt: &str) -> i32 {
         println!("Invalid input. Please enter a valid integer.");
     }
 }
+```
 get_two_numbers и get_one_number — это функции для получения чисел от пользователя. Первая запрашивает два числа, а вторая — одно.
 read_number — универсальная функция, которая спрашивает пользователя, вводит число, проверяет, что это целое число, и возвращает его. Если введено нечисловое значение, функция повторяет запрос.
 7. Завершение работы
