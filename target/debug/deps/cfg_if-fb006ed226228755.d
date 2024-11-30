@@ -1,0 +1,7 @@
+D:\app\univer\task\1\grpc_rust\target\debug\deps\libcfg_if-fb006ed226228755.rmeta: C:\Users\User\.cargo\registry\src\index.crates.io-6f17d22bba15001f\cfg-if-1.0.0\src\lib.rs
+
+D:\app\univer\task\1\grpc_rust\target\debug\deps\libcfg_if-fb006ed226228755.rlib: C:\Users\User\.cargo\registry\src\index.crates.io-6f17d22bba15001f\cfg-if-1.0.0\src\lib.rs
+
+D:\app\univer\task\1\grpc_rust\target\debug\deps\cfg_if-fb006ed226228755.d: C:\Users\User\.cargo\registry\src\index.crates.io-6f17d22bba15001f\cfg-if-1.0.0\src\lib.rs
+
+C:\Users\User\.cargo\registry\src\index.crates.io-6f17d22bba15001f\cfg-if-1.0.0\src\lib.rs:

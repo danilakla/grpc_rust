@@ -1,0 +1,1 @@
+{"rustc":8713626761367032038,"features":"","declared_features":"","target":0,"profile":0,"path":0,"deps":[[9010721185423116187,"build_script_build",false,249574386277254596]],"local":[{"RerunIfChanged":{"output":"debug\\build\\rust-playground-7849e5d1727d113f\\output","paths":["proto/greet.proto","proto"]}}],"rustflags":[],"metadata":0,"config":0,"compile_kind":0}

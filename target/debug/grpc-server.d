@@ -1,0 +1,1 @@
+D:\app\univer\task\1\grpc_rust\target\debug\grpc-server.exe: D:\app\univer\task\1\grpc_rust\build.rs D:\app\univer\task\1\grpc_rust\proto D:\app\univer\task\1\grpc_rust\proto/greet.proto D:\app\univer\task\1\grpc_rust\src\server.rs D:\app\univer\task\1\grpc_rust\target\debug\build\rust-playground-7849e5d1727d113f\out\greet.rs
