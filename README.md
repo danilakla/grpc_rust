@@ -18,7 +18,7 @@ markdown
 
 ## Шаги по установке и настройке
 
-### 1. Установить Rust
+## 1. Установить Rust
 Для установки Rust воспользуйтесь [официальным установщиком](https://rustup.rs/):
 
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
@@ -38,12 +38,12 @@ protoc --version  # Проверить версию
 Windows:
 Скачайте precompiled binary отсюда (https://github.com/protocolbuffers/protobuf/releases). Добавьте protoc в PATH.
 
-3. Создать проект Rust
+## 3. Создать проект Rust
 Создайте новый проект:
 
 cargo new grpc_calculator
 cd grpc_calculator
-4. Установить зависимости
+## 4. Установить зависимости
 Добавьте следующие зависимости в Cargo.toml:
 
 [dependencies]
@@ -51,7 +51,7 @@ tonic = "0.9"
 prost = "0.11"
 tokio = { version = "1", features = ["full"] }
 
-5. Подготовить Protobuf файл
+## 5. Подготовить Protobuf файл
 Создайте папку proto в корне проекта:
 
 mkdir proto
@@ -88,7 +88,7 @@ message Parm1Result {
   int32 z = 2;
 }
 
-6. Генерация gRPC кода
+## 6. Генерация gRPC кода
 Добавьте build.rs в корневую папку проекта:
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -100,7 +100,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 cargo build
 Сгенерированные файлы появятся в директории target/debug/build/grpc_calculator/.
 
-7. Написание сервера
+## 7. Написание сервера
 Создайте файл src/server.rs:
 
 1. Импортирование зависимостей
@@ -180,7 +180,7 @@ GreeterServer::new(greeter) — это создание сервера gRPC, к�
 serve(addr) запускает сервер и начинает принимать входящие запросы на заданном адресе.
 
 
-8. Написание клиента
+## 8. Написание клиента
 Создайте файл src/client.rs:
 
 
@@ -295,7 +295,7 @@ Ok(())
 
 
 
-9. Запуск
+## 9. Запуск
 Запустите сервер:
 cargo run --bin server
 Запустите клиент:
