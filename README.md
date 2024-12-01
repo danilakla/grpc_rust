@@ -60,8 +60,6 @@ tonic = "0.11.0"
 prost = "0.12.4"
 tokio = {version = "1.37.0", features = ["full"]}
 protobuf = "3.7.1"
-druid = "0.8.3"
-
 
 [build-dependencies]
 prost-build = "0.13.3"
@@ -75,9 +73,6 @@ path = "src/server.rs"
 name = "grpc-client"
 path = "src/client.rs"
 
-[[bin]]
-name = "grpc-client-ui"
-path = "src/clientui.rs"
 
 ```
 
