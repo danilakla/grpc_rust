@@ -20,12 +20,13 @@ markdown
 
 ## 1. Установить Rust
 Для установки Rust воспользуйтесь [официальным установщиком](https://rustup.rs/):
-
+или
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 Проверьте, что Rust установлен:
 
-rustc --version
-cargo --version
+### rustup --version
+### cargo --version
+
 ## 2. Установить Protobuf Compiler (protoc)
 
 gRPC использует Protobuf для сериализации данных. Скачайте и установите protoc:
@@ -35,27 +36,37 @@ sudo apt update
 sudo apt install -y protobuf-compiler
 protoc --version  # Проверить версию
 
-Windows:
+### Windows:
 Скачайте precompiled binary отсюда (https://github.com/protocolbuffers/protobuf/releases). Добавьте protoc в PATH.
 
 ## 3. Создать проект Rust
 Создайте новый проект:
 
-cargo new grpc_calculator
-cd grpc_calculator
-## 4. Установить зависимости
-Добавьте следующие зависимости в Cargo.toml:
+### cargo new grpc_calculator
+### cd grpc_calculator
 
+## 4. Установить зависимости
+
+Добавьте следующие зависимости в Cargo.toml:
+```
 [dependencies]
-tonic = "0.9"
-prost = "0.11"
-tokio = { version = "1", features = ["full"] }
+tonic = "0.11.0"
+prost = "0.12.4"
+tokio = {version = "1.37.0", features = ["full"]}
+protobuf = "3.7.1"
+
+[build-dependencies]
+prost-build = "0.13.3"
+tonic-build = "0.11.0"
+
+```
 
 ## 5. Подготовить Protobuf файл
 Создайте папку proto в корне проекта:
 
-mkdir proto
+### mkdir proto
 Создайте файл proto/calculator.proto:
+
 ```
 syntax = "proto3";
 package greet;
@@ -89,15 +100,17 @@ message Parm1Result {
 }
 ```
 ## 6. Генерация gRPC кода
-Добавьте build.rs в корневую папку проекта:
-
+Добавьте  build.rs в корневую папку проекта:
+```
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     tonic_build::compile_protos("proto/calculator.proto")?;
     Ok(())
 }
+```
 Обновите Cargo.toml для сборки Protobuf:
-
+```
 cargo build
+```
 Сгенерированные файлы появятся в директории target/debug/build/grpc_calculator/.
 
 ## 7. Написание сервера
@@ -300,9 +313,14 @@ Ok(())
 
 ## 9. Запуск
 Запустите сервер:
+```
 cargo run --bin server
+
+```
 Запустите клиент:
+```
 cargo run --bin client
+```
 Как это работает
 proto/calculator.proto: Описание gRPC сервиса и сообщений.
 server.rs: Реализация сервера, обрабатывающего запросы.
