@@ -42,22 +42,42 @@ protoc --version  # Проверить версию
 ## 3. Создать проект Rust
 Создайте новый проект:
 
-### cargo new grpc_calculator
-### cd grpc_calculator
+### cargo new rust-playground
+### cd rust-playground
 
 ## 4. Установить зависимости
 
 Добавьте следующие зависимости в Cargo.toml:
 ```
+[package]
+name = "rust-playground"
+version = "0.1.0"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
 [dependencies]
 tonic = "0.11.0"
 prost = "0.12.4"
 tokio = {version = "1.37.0", features = ["full"]}
 protobuf = "3.7.1"
+druid = "0.8.3"
+
 
 [build-dependencies]
 prost-build = "0.13.3"
 tonic-build = "0.11.0"
+
+[[bin]]
+name = "grpc-server"
+path = "src/server.rs"
+
+[[bin]]
+name = "grpc-client"
+path = "src/client.rs"
+
+[[bin]]
+name = "grpc-client-ui"
+path = "src/clientui.rs"
 
 ```
 
@@ -111,7 +131,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 ```
 cargo build
 ```
-Сгенерированные файлы появятся в директории target/debug/build/grpc_calculator/.
+Сгенерированные файлы появятся в директории target/debug/build/rust-playground/.
 
 ## 7. Написание сервера
 Создайте файл src/server.rs:
