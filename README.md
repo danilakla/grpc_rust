@@ -334,14 +334,16 @@ Ok(())
 
 
 ## 9. Запуск
+cargo build
+
 Запустите сервер:
 ```
-cargo run --bin server
+cargo run --bin grpc-server
 
 ```
 Запустите клиент:
 ```
-cargo run --bin client
+cargo run --bin grpc-client
 ```
 Как это работает
 proto/calculator.proto: Описание gRPC сервиса и сообщений.
