@@ -19,9 +19,9 @@ markdown
 ## Шаги по установке и настройке
 
 ## 1. Установить Rust
+Перед установкой нужно убедиться, что в Visual Studio скачан набор инструментов "Разработка классических приложений на C++".
 Для установки Rust воспользуйтесь [официальным установщиком](https://rustup.rs/):
-или
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+запусить .exe
 Проверьте, что Rust установлен:
 
 ### rustup --version
@@ -74,8 +74,6 @@ path = "src/server.rs"
 name = "grpc-client"
 path = "src/client.rs"
 
-
-
 ```
 
 ## 5. Подготовить Protobuf файл
@@ -83,6 +81,7 @@ path = "src/client.rs"
 
 ### mkdir proto
 Создайте файл proto/calculator.proto:
+
 
 ```
 syntax = "proto3";
