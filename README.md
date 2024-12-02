@@ -31,11 +31,6 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 gRPC использует Protobuf для сериализации данных. Скачайте и установите protoc:
 
-### Ubuntu/Debian:
-sudo apt update
-sudo apt install -y protobuf-compiler
-protoc --version  # Проверить версию
-
 ### Windows:
 Скачайте precompiled binary отсюда (https://github.com/protocolbuffers/protobuf/releases). Добавьте protoc в PATH.
 
@@ -52,18 +47,24 @@ protoc --version  # Проверить версию
 [package]
 name = "rust-playground"
 version = "0.1.0"
+edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-tonic = "0.11.0"
-prost = "0.12.4"
+
+tonic = "0.12.3"
+tonic-reflection = "0.12"
+
+prost = "0.13.3"
 tokio = {version = "1.37.0", features = ["full"]}
+tokio-stream = "0.1"
 protobuf = "3.7.1"
+
 
 [build-dependencies]
 prost-build = "0.13.3"
-tonic-build = "0.11.0"
+tonic-build = "0.12.3"
 
 [[bin]]
 name = "grpc-server"
@@ -72,6 +73,7 @@ path = "src/server.rs"
 [[bin]]
 name = "grpc-client"
 path = "src/client.rs"
+
 
 
 ```
@@ -117,9 +119,15 @@ message Parm1Result {
 ## 6. Генерация gRPC кода
 Добавьте  build.rs в корневую папку проекта:
 ```
-fn main() -> Result<(), Box<dyn std::error::Error>> {
-    tonic_build::compile_protos("proto/calculator.proto")?;
-    Ok(())
+use std::{env, path::PathBuf};
+
+fn main() {
+    let out_dir = PathBuf::from(env::var("OUT_DIR").unwrap());
+    tonic_build::configure()
+        .file_descriptor_set_path(out_dir.join("greet_descriptor.bin"))  // Save the descriptor file in the "proto" directory
+        .compile(&["proto/greet.proto"], &["proto"])
+
+        .unwrap_or_else(|e| panic!("Failed to compile protos {:?}", e));
 }
 ```
 Обновите Cargo.toml для сборки Protobuf:
